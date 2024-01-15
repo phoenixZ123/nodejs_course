@@ -1,4 +1,5 @@
 import * as express from 'express';
+import e = require('express');
 
 // namespace declare -->express.Application
 let app: express.Application = express();
@@ -39,12 +40,15 @@ try{
  let res=await result();
  return res;
 }catch(e){
-return e
+return Promise.reject(e);
 }
 }
 final().then((res)=>{
 console.log(res);
+}).catch(e=>{
+    console.log(e)
 })
+
 
 // asynchronous
 let port=3000;
