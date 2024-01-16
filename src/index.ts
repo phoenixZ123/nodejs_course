@@ -1,97 +1,26 @@
 import * as express from "express";
 
-// namespace declare -->express.Application
 let app: express.Application = express();
 
-function Math_ByX() {
-  return true;
-}
-function Math_ByY() {
-  return false;
-}
+const object1 = { id: 1, name: "bae" };
+// ...spread operator convert as single element
+// change value in{}
+const object3 = { age: 24, location: "Nay pyi taw" };
+const object2 = {
+  ...object1,
+  email: "ppw112@gmail.com",
+  password: 111,
+  id: 4,
+  name: "thalthal",
+  ...object3
+};
+console.log(object2);
 
-function result(): Promise<string> {
-  return new Promise((resolve, reject) => {
-    if (Math_ByX()) {
-      resolve("math By X arrive");
-    } else if (Math_ByY()) {
-      resolve("this is Math By Y arrive");
-    } else {
-      reject("Nothing at both arrive");
-    }
-  });
-}
-//
-function Java() {
-  return false;
-}
-function NodeJS() {
-  return false;
-}
-function resultLanguageBook() {
-  return new Promise((resolve, reject) => {
-    if (Java()) {
-      resolve("java" + true);
-    } else if (NodeJS()) {
-      resolve("nodejs " + true);
-    } else {
-      reject("reject " + false);
-    }
-  });
-}
-async function resultBook() {
-  try {
-    let book = await resultLanguageBook();
-    return book;
-  } catch (e) {
-    return e;
-  }
-}
-resultBook()
-  .then((result) => {
-    if (result) {
-      resultLanguageBook()
-        .then((data) => {
-          console.log("Language: " + data);
-        })
-        .catch((error) => {
-          // reject true in error
-          console.log("error: ", error);
-        });
-    }
-  })
-  .catch((e) => {
-    return e;
-  });
-// result().then((result)=>{
-// console.log(result)
-// }).catch(error=>{
-//     console.log('error: '+error)
-// })
+const array = [1, 2, 3];
+const array2 = [4, 5, 6];
+const nextArray = [...array, ...array2];
+console.log(nextArray);
 
-// async await function
-
-async function final() {
-  try {
-    let res = await result();
-    // if math result true , auto include LanguageBook result.
-    if (res) res = await resultBook();
-    // will be return the same
-    return res;
-  } catch (e) {
-    return e;
-  }
-}
-final()
-  .then((data) => {
-    console.log("Math : " + data);
-  })
-  .catch((e) => {
-    console.log(e);
-  });
-
-// asynchronous
-let port = 3000;
-app.listen(port, () => {
-  console.log(`server is running at port ${port}`);
+app.listen(3000, () => {
+  console.log("server listening on port 3000");
 });
