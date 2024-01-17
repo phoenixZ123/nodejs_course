@@ -2,6 +2,37 @@ import * as express from "express";
 
 let app: express.Application = express();
 
+// as middleware
+app.use((req, res, next) => {
+  console.log("middleware start");
+  next();
+});
+
+app.get("/api/user/test", (req, res) => {
+  res.send("user test");
+});
+
+app.get(
+  "/api/user/login",
+  (req, res, next) => {
+    console.log("user login");
+    const data = [{ name: "will_austin" }];
+    res.send(data);
+    next();
+  }
+
+  // ,
+  // (req, res) => {
+  //   console.log("middeware 2");
+  //   res.status(200).send("test");
+  // }
+);
+//
+
+app.use((req, res, next) => {
+  console.log("middleware 1");
+  next();
+});
 const object1 = { id: 1, name: "bae" };
 // ...spread operator convert as single element
 // change value in{}
@@ -22,21 +53,10 @@ const nextArray = [...array, ...array2];
 console.log(nextArray);
 
 app.get("/api/user/login", (req, res) => {
-  // should use 200oK if use other 400 or other,they show unauthorized.
-  // const user = {
-  //   name: "Pyae Phyoe Wai",
-  //   email: "phuephue1125@gmail.com",
-  //   password: "%erq!@",
-  // };
-  // res.status(200).send("hi there");
-  // json {name:"ppw",age:24} object
-  // res.status(200).json(user);
   console.log("email : " + req.query.email);
   res.send("success get method");
 });
-app.get("/api/user/test", (req, res) => {
-  res.send("test");
-});
+
 app.post("/api/login", (req, res) => {
   res.json({
     name: "ppw",
