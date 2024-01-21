@@ -1,5 +1,6 @@
 import * as express from "express";
 import * as mongoose from "mongoose";
+import { getEnvironmentVariables } from "./environments/environment";
 let app: express.Application = express();
 
 // as middleware
@@ -8,13 +9,9 @@ app.use((req, res, next) => {
   next();
 });
 
-mongoose
-  .connect(
-    "mongodb+srv://willaustin:willaustin@testnodejs.cvcyxuo.mongodb.net/testnodejs?retryWrites=true&w=majority"
-  )
-  .then(() => {
-    console.log("mongodb connected");
-  });
+mongoose.connect(getEnvironmentVariables().db_uri).then(() => {
+  console.log("mongodb connected");
+});
 
 app.get("/api/user/test", (req, res) => {
   res.status(200).send("user test");
@@ -28,11 +25,11 @@ app.get("/api/user/test", (req, res) => {
 //     res.send(data);
 //     next();
 //   }
- // ,
-  // (req, res) => {
-  //   console.log("middeware 2");
-  //   res.status(200).send("test");
-  // }
+// ,
+// (req, res) => {
+//   console.log("middeware 2");
+//   res.status(200).send("test");
+// }
 // );
 //
 
