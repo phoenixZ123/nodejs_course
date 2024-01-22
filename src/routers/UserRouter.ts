@@ -15,7 +15,12 @@ class UserRouter {
     this.router.get("/login", UserController.login, (req, res) => {
       console.log("this is from UserController login");
     });
-    this.router.get("/test", UserController.test1,UserController.test2);
+    this.router.get(
+      "/test",
+      UserController.login,
+      UserController.test1,
+      UserController.test2
+    );
   }
 
   postRoutes() {}
