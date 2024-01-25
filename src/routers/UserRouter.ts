@@ -12,9 +12,7 @@ class UserRouter {
     this.deleteRoutes();
   }
   getRoutes() {
-    this.router.get("/login", UserController.login, (req, res) => {
-      console.log("this is from UserController login");
-    });
+    this.router.post("/login", UserController.login);
     this.router.get(
       "/test",
       UserController.login,
