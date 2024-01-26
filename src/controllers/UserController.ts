@@ -8,6 +8,8 @@ export class UserController {
     // next(error);
     // req.body is body-parser used.
     res.send(req.body);
+    console.log(req.body);
+    // async
     console.log("user auth");
   }
   static test1(req, res, next) {
@@ -19,4 +21,5 @@ export class UserController {
     res.send((req as any).msg);
     console.log("this is test2");
   }
+  static welcome(req, res) {}
 }
