@@ -36,6 +36,7 @@ export class Server {
     this.connectMongoDB();
     this.configureBodyParser();
   }
+  //user auth table post login form
   configureBodyParser() {
     this.app.use(
       bodyParser.urlencoded({

@@ -1,3 +1,5 @@
+import User from "../models/User";
+
 export class UserController {
   // declare for method this is
 
@@ -7,7 +9,24 @@ export class UserController {
     // 422
     // next(error);
     // req.body is body-parser used.
-    res.send(req.body);
+
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const user = new User({
+      email,
+      password,
+    });
+
+    user
+      .save()
+      .then((user) => {
+        res.send(user);
+      })
+      .catch((e) => {
+        const err = new Error(e);
+        next(err);
+      });
     console.log(req.body);
     // async
     console.log("user auth");
@@ -21,5 +40,4 @@ export class UserController {
     res.send((req as any).msg);
     console.log("this is test2");
   }
-  static welcome(req, res) {}
 }
