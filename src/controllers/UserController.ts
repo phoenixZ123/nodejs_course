@@ -4,45 +4,36 @@ export class UserController {
   // declare for method this is
 
   static signup(req, res, next) {
-    // (req as any).errorStatus = 422;
-    // const error = new Error("user email or password does not match");
-    // 422
-    // next(error);
-    // req.body is body-parser used.
-    const error = validationResult(req);
+    const errors = validationResult(req);
     const name = req.body.name;
+    const phone = req.body.phone;
     const email = req.body.email;
     const password = req.body.password;
-    if (!error.isEmpty()) {
-      return res.status(400).json({ error: error.array().map((e) => e.msg) });
+    const type = req.body.type;
+    const status = req.body.status;
+    if (!errors.isEmpty()) {
+      next(new Error(errors.array()[0].msg));
     }
+    const data = {
+      name,
+      phone,
+      email,
+      password,
+      type,
+      status,
+    };
+    let user = new User(data);
+    user
+      .save()
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        next(err);
+      });
 
-    // const user = new User({
-    //   name
-    //   email,
-    //   password,
-    // });
-
-    // user
-    //   .save()
-    //   .then((user) => {
-    //     res.send(user);
-    //   })
-    //   .catch((e) => {
-    //     const err = new Error(e);
-    //     next(err);
-    //   });
     console.log(req.body);
     // async
     console.log("user auth");
-  }
-  static test1(req, res, next) {
-    (req as any).msg = "this is req test1";
-    next();
-  }
-  static test2(req, res) {
-    // will show test1
-    res.send((req as any).msg);
-    console.log("this is test2");
   }
 }
